@@ -12,7 +12,7 @@ preamble = r'''
 \usepackage{tikz}
 \usepackage{tkz-euclide}
 \usepackage{siunitx}
-\usetikzlibrary{shapes, shapes.multipart}
+\usetikzlibrary{shapes, shapes.multipart, positioning}
 
 \usepackage{verbatim}
 \usepackage{lipsum}
