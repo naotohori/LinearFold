@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 
 import sys
 import math
@@ -26,7 +26,7 @@ picturepre = r'''
 \begin{tikzpicture}[darkstyle/.style={}, scale=2] %circle,draw,fill=gray!10}]
 '''
 
-print preamble
+print(preamble)
 
 dataset = "."
 MAXLEN = 5650
@@ -63,28 +63,28 @@ def drawarc_clockwise(a, b, deg, style, length, lengthfix):
     pb = angle_b * math.pi / 180.
     palpha = alpha * math.pi / 180.
     if alpha < 170:
-        print "\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_b,
+        print("\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_b,
                                                                                                     angle_b + 90,
                                                                                                     angle_a + 270,
                                                                                                     # 10*math.sin(palpha/2.) / math.sin(math.pi/2. - palpha/2.),
                                                                                                     10 * math.tan(palpha/2.),
                                                                                                     a, b, length
-        )
+        ))
     elif alpha > 190:
         beta = 360. - alpha
         pbeta = beta * math.pi / 180.
-        print "\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_a,
+        print("\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_a,
                                                                                                     angle_a + 90,
                                                                                                     angle_b - 90,
                                                                                                     # 10*math.sin(palpha/2.) / math.sin(math.pi/2. - palpha/2.),
                                                                                                     10 * math.tan(pbeta/2.),
                                                                                                     a, b, length
-        )
+        ))
     else:
-        print "\\draw[line width = 0.0mm] %s (%d) to [bend left=%.1f] (%d);" % (style, 
+        print("\\draw[line width = 0.0mm] %s (%d) to [bend left=%.1f] (%d);" % (style, 
                                                                               a, 
                                                                               2*deg,
-                                                                              b)
+                                                                              b))
 
 
 def drawarc_counterclockwise(a, b, deg, style, length, lengthfix): ## counterclock wise
@@ -96,28 +96,28 @@ def drawarc_counterclockwise(a, b, deg, style, length, lengthfix): ## counterclo
     pb = angle_b * math.pi / 180.
     palpha = alpha * math.pi / 180.
     if alpha < 170:
-        print "\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_b,
+        print("\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_b,
                                                                                                     angle_b + 90,
                                                                                                     angle_a + 270,
                                                                                                     # 10*math.sin(palpha/2.) / math.sin(math.pi/2. - palpha/2.),
                                                                                                     10 * math.tan(palpha/2.),
                                                                                                     a, b, length
-        )
+        ))
     elif alpha > 190:
         beta = 360. - alpha
         pbeta = beta * math.pi / 180.
-        print "\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_a,
+        print("\\draw[line width = 0.0mm] %s ([shift=(%f:10cm)]0,0) arc (%f:%f:%fcm); %% %d %d %d" % (style, angle_a,
                                                                                                     angle_a + 90,
                                                                                                     angle_b - 90,
                                                                                                     # 10*math.sin(palpha/2.) / math.sin(math.pi/2. - palpha/2.),
                                                                                                     10 * math.tan(pbeta/2.),
                                                                                                     a, b, length
-        )
+        ))
     else:
-        print "\\draw[line width = 0.0mm] %s (%d) to [bend left=%.1f] (%d);" % (style, 
+        print("\\draw[line width = 0.0mm] %s (%d) to [bend left=%.1f] (%d);" % (style, 
                                                                               a, 
                                                                               2*deg,
-                                                                              b)
+                                                                              b))
 
 
 def agree(pres, pref, a, b): ## pres[a] = b
@@ -153,11 +153,11 @@ for index, line in enumerate(sys.stdin):
         note = True
         seq, res, ref, filename, notes = tmp
     else:
-        print "input format error!"
+        print("input format error!")
         sys.exit(1)
 
     stacks = []
-    for _ in xrange(len(lbs)):
+    for _ in range(len(lbs)):
         stacks.append([])
     for i, item in enumerate(res):
         if item in lbs:
@@ -174,7 +174,7 @@ for index, line in enumerate(sys.stdin):
     notes += ";pair=%d" % (len(respair)//2)
 
     stacks = []
-    for _ in xrange(len(lbs)):
+    for _ in range(len(lbs)):
         stacks.append([])
     for i, item in enumerate(ref):
         if item in lbs:
@@ -193,14 +193,14 @@ for index, line in enumerate(sys.stdin):
 
 
     if length > MAXLEN:
-        print >> logs, "too long (%d %s). Sequence length should in range [50, 5650]" % (length, "nt")
+        print("too long (%d %s). Sequence length should in range [50, 5650]" % (length, "nt"), file=logs)
         continue # too long    
 
     if length < MINLEN:
-        print >> logs, "too short (%d %s). Sequence length should in range [50, 5650]" % (length, "nt")
+        print("too short (%d %s). Sequence length should in range [50, 5650]" % (length, "nt"), file=logs)
         continue # too short    
 
-    print picturepre
+    print(picturepre)
 
 
     lengthfix = int(length/9.0)
@@ -213,7 +213,7 @@ for index, line in enumerate(sys.stdin):
             else:
                 angle = angle-70 + rotate 
             
-            print "\\node [darkstyle]  (%d) at (%f:10cm) {};" % (i, angle)
+            print("\\node [darkstyle]  (%d) at (%f:10cm) {};" % (i, angle))
             # print len(seq)
             if length <= 100:
                 gap = 5
@@ -233,14 +233,14 @@ for index, line in enumerate(sys.stdin):
                 gap = 400
 
             if i % gap == 0 and i < len(bases)-10:
-                print "\\node [scale=2]           (%d,1) at (%f:10.8cm) {\Huge %d};" % (i, angle, i)
+                print("\\node [scale=2]           (%d,1) at (%f:10.8cm) {\Huge %d};" % (i, angle, i))
             if i > 1:
-                print "\\draw (%d.center) -- (%d.center);" % (i, i-1)
+                print("\\draw (%d.center) -- (%d.center);" % (i, i-1))
       
         else:
-            print "\\node [darkstyle]  (%d) at (%d,0) {};" % (i, i)
+            print("\\node [darkstyle]  (%d) at (%d,0) {};" % (i, i))
             if i % 5 == 0:
-                print "\\node []           (%d,1) at (%d,-1) {%d};" % (i, i, i)
+                print("\\node []           (%d,1) at (%d,-1) {%d};" % (i, i, i))
 
     if circular:
 
@@ -248,7 +248,7 @@ for index, line in enumerate(sys.stdin):
             i += 1
             angle = 360./(length+lengthfix)*(i)
             angle = 450-angle-20
-            print "\\node [darkstyle]  (%d) at (%f:10cm) {};" % (i, angle)
+            print("\\node [darkstyle]  (%d) at (%f:10cm) {};" % (i, angle))
             # print "\\draw (%d.center) -- (%d.center);" % (i, i-1)
 
         angle = 360./(length+lengthfix)
@@ -264,11 +264,11 @@ for index, line in enumerate(sys.stdin):
             angle3 = angle + 13
         # print "\\node [scale=2](%d,1) at (%f:10cm) {\LARGE \\textbf{%s}};" % (i, angle5, "5'")
         if counter_clockwise:
-            print "\\node [scale=2](3prime) at (%f:10cm) {\LARGE \\textbf{%s}};" % (angle3, "3'")
-            print "\\node [right=9.5cm of 3prime, scale=2] {\LARGE \\textbf{%s}};" % "5'"
+            print("\\node [scale=2](3prime) at (%f:10cm) {\LARGE \\textbf{%s}};" % (angle3, "3'"))
+            print("\\node [right=9.5cm of 3prime, scale=2] {\LARGE \\textbf{%s}};" % "5'")
         else:
-            print "\\node [scale=2](3prime) at (%f:10cm) {\LARGE \\textbf{%s}};" % (angle3, "5'")
-            print "\\node [right=9.5cm of 3prime, scale=2] {\LARGE \\textbf{%s}};" % "3'"
+            print("\\node [scale=2](3prime) at (%f:10cm) {\LARGE \\textbf{%s}};" % (angle3, "5'"))
+            print("\\node [right=9.5cm of 3prime, scale=2] {\LARGE \\textbf{%s}};" % "3'")
 
     for a, b, stackindex in goldpairs:
         if agree(goldpair, respair, a, b):
@@ -347,9 +347,9 @@ for index, line in enumerate(sys.stdin):
 
     # if note:
     #     print "\\node[align=center,font=\\bfseries, yshift=2em] (title) at (current bounding box.north) {\Huge %s};" % (notes)
-    print "\\end{tikzpicture}"
+    print("\\end{tikzpicture}")
     # print r"} \newpage " # resizebox
 
-print "\\end{document}"
+print("\\end{document}")
 
-print >> logs, "%d out of %d sequences have pseudoknots" % (num_hasknot, index) #TODO
+print("%d out of %d sequences have pseudoknots" % (num_hasknot, index), file=logs) #TODO
