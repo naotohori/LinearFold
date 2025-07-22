@@ -29,7 +29,8 @@ picturepre = r'''
 print(preamble)
 
 dataset = "."
-MAXLEN = 5650
+#MAXLEN = 5650
+MAXLEN = 12000
 MINLEN = 50
 circular = True
 
